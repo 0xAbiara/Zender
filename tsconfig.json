@@ -39,6 +39,9 @@
     "out/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "vitest.config.mts",
+    "playwright.config.ts",
+    "test/**/*"
   ]
 }
