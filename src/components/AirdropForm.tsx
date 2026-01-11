@@ -152,7 +152,7 @@ export default function AirdropForm() {
     // This prevents hydration mismatches
     if (!isClient) {
         return (
-            <div className="min-h-screen pt-8 px-6 flex justify-center">
+            <div className="min-h-screen pt-4 px-6 flex justify-center">
                 <div className="max-w-2xl w-full space-y-6">
                     <div className="animate-pulse">
                         <div className="h-10 bg-gray-200 rounded mb-6"></div>
@@ -167,7 +167,7 @@ export default function AirdropForm() {
     }
 
     return (
-        <div className="min-h-screen pt-8 px-6 flex justify-center">
+        <div className="min-h-screen pt-4 px-6 flex justify-center">
             <div className="max-w-2xl w-full space-y-6">
                 <InputField
                     label="Token Address"
