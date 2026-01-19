@@ -1,23 +1,31 @@
 "use client"
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { type ReactNode } from "react"
-import config from "@/rainbowKitConfig"
+import { type ReactNode, useState, useEffect } from "react"
 import { WagmiProvider } from "wagmi"
-import { RainbowKitProvider, ConnectButton } from "@rainbow-me/rainbowkit"
-import { useState } from "react"
-import '@rainbow-me/rainbowkit/styles.css';
+import { lightTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit"
+import { getConfig } from "@/rainbowKitConfig"
+import "@rainbow-me/rainbowkit/styles.css"
 
 export function Providers(props: { children: ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient())
+    const [queryClient] = useState(() => new QueryClient())
+    const [config, setConfig] = useState<ReturnType<typeof getConfig> | null>(null)
 
-  return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
-            {props.children}
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-  )
+    useEffect(() => {
+        setConfig(getConfig())
+    }, [])
+
+    if (!config) {
+        return null // or a loading spinner
+    }
+
+    return (
+        <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClient}>
+                <RainbowKitProvider theme={lightTheme({ borderRadius: "medium" })}>
+                    {props.children}
+                </RainbowKitProvider>
+            </QueryClientProvider>
+        </WagmiProvider>
+    )
 }
